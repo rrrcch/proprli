@@ -23,6 +23,6 @@ class Building extends Model
      */
     public function tasks()
     {
-        return $this->hasMany(Comment::class);
+        return $this->hasMany(Task::class);
     }
 }
