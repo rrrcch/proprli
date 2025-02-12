@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Models\Building;
 use App\Models\Comment;
 use App\Models\Task;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -58,7 +59,7 @@ class TaskControllerTest extends TestCase
             'name'        => $taskData['name'],
             'description' => $taskData['description'],
             'building_id' => $taskData['building_id'],
-            'created_by'  => $taskData['created_by'],
+            'created_by'  => $this->user->id,
             'assigned_to' => $taskData['assigned_to'],
             'status'      => $taskData['status'],
         ];
