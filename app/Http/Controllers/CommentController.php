@@ -5,11 +5,16 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreCommentRequest;
+use App\Services\CommentService;
 use App\Models\Task;
 use Illuminate\Http\JsonResponse;
 
 class CommentController extends Controller
 {
+    public function __construct(protected CommentService $commentService)
+    {
+    }
+
     /**
      * Stores a new comment for a task.
      *
@@ -17,10 +22,10 @@ class CommentController extends Controller
      * @param StoreCommentRequest $request
      * @return JsonResponse
      */
-    public function store(Task $task, StoreCommentRequest $request): JsonResponse
+    public function store(string $id, StoreCommentRequest $request): JsonResponse
     {
         $validated = $request->validated();
-        $comment = $task->comments()->create($validated);
+        $comment = $this->commentService->createComment($validated, $id);
 
         return response()->json($comment, 201);
     }
