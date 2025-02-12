@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreTaskRequest;
 use App\Models\Building;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 class TaskController extends Controller
 {
@@ -29,12 +29,13 @@ class TaskController extends Controller
      * Stores a new task for a building.
      *
      * @param Building $building
-     * @param Request $request
+     * @param StoreTaskRequest $request
      * @return JsonResponse
      */
-    public function store(Building $building, Request $request): JsonResponse
+    public function store(Building $building, StoreTaskRequest $request): JsonResponse
     {
-        $task = $building->tasks()->create($request->all());
+        $validated = $request->validated();
+        $task = $building->tasks()->create($validated);
 
         return response()->json($task, 201);
     }
