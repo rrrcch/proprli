@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Building;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -20,6 +21,7 @@ class TaskFactory extends Factory
         return [
             'name' => fake()->sentence(),
             'description' => fake()->paragraph(),
+            'building_id' => Building::factory(),
             'created_by' => User::factory(),
             'assigned_to' => User::factory(),
             'status' => 'open',
