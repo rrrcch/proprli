@@ -18,7 +18,6 @@ class StoreTaskRequest extends FormRequest
         return [
             'name'        => ['required'],
             'description' => ['required'],
-            'created_by'  => ['required', 'exists:users,id'],
             'assigned_to' => ['required', 'exists:users,id'],
             'status'      => [Rule::in(TaskStatus::values())],
         ];
