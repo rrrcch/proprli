@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -53,5 +54,56 @@ class Task extends Model
     public function assignedUser()
     {
         return $this->belongsTo(User::class, 'assigned_to');
+    }
+
+    /**
+     * Scope for filtering by building
+     */
+    public function scopeForBuilding(Builder $query, string $buildingId): Builder
+    {
+        return $query->where('building_id', $buildingId);
+    }
+
+    /**
+     * Scope for filtering by status
+     */
+    public function scopeStatus(Builder $query, ?string $status): Builder
+    {
+        if ($status) {
+            $query->where('status', $status);
+        }
+
+        return $query;
+    }
+
+    /**
+     * Scope for filtering by assigned user
+     */
+    public function scopeAssignedTo(Builder $query, ?int $assignedTo): Builder
+    {
+        if ($assignedTo) {
+            $query->where('assigned_to', $assignedTo);
+        }
+
+        return $query;
+    }
+
+    /**
+     * Scope for date range filtering
+     */
+    public function scopeCreatedBetween(
+        Builder $query,
+        ?string $startDate,
+        ?string $endDate
+    ): Builder {
+        if ($startDate) {
+            $query->whereDate('created_at', '>=', $startDate);
+        }
+
+        if ($endDate) {
+            $query->whereDate('created_at', '<=', $endDate);
+        }
+
+        return $query;
     }
 }
