@@ -13,6 +13,7 @@ class CommentController extends Controller
 {
     public function __construct(protected CommentService $commentService)
     {
+        //
     }
 
     /**
@@ -25,7 +26,11 @@ class CommentController extends Controller
     public function store(string $id, StoreCommentRequest $request): JsonResponse
     {
         $validated = $request->validated();
-        $comment = $this->commentService->createComment($validated, $id);
+
+        $validated['task_id'] = $id;
+        $validated['user_id'] = auth()->user()->id;
+
+        $comment = $this->commentService->createComment($validated);
 
         return response()->json($comment, 201);
     }

@@ -4,11 +4,16 @@ declare(strict_types=1);
 
 namespace App\Services;
 
+use App\Contracts\CommentRepositoryInterface;
 use App\Models\Comment;
-use App\Models\Task;
 
 class CommentService
 {
+    public function __construct(protected CommentRepositoryInterface $commentRepository)
+    {
+        //
+    }
+
     /**
      * Creates a new comment for a task.
      *
@@ -16,11 +21,8 @@ class CommentService
      * @param string $taskId
      * @return Comment
      */
-    public function createComment(array $data, string $taskId): Comment
+    public function createComment(array $data): Comment
     {
-        $task = Task::findOrFail($taskId);
-        $comment = $task->comments()->create($data);
-
-        return $comment;
+        return $this->commentRepository->create($data);
     }
 }
