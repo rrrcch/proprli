@@ -20,6 +20,8 @@ return new class extends Migration
             $table->foreignId('assigned_to')->nullable()->constrained('users');
             $table->string('status')->default('open');
             $table->timestamps();
+
+            $table->index('status');
         });
     }
 

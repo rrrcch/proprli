@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Enums\TaskStatus;
 use App\Models\Building;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -24,7 +25,7 @@ class TaskFactory extends Factory
             'building_id' => Building::factory(),
             'created_by' => User::factory(),
             'assigned_to' => User::factory(),
-            'status' => 'open',
+            'status' => fake()->randomElement(TaskStatus::cases())->value,
         ];
     }
 }
