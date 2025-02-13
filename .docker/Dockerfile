@@ -25,7 +25,10 @@ RUN apt-get update && apt-get install -y \
     pcntl \
     bcmath \
     gd \
-    zip
+    zip \
+    dom \
+    xml \
+    xmlwriter
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
