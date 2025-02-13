@@ -24,7 +24,6 @@ After the setup is completed, the API will be available at:
 ```
 http://localhost/api/
 ```
-
 Make sure no other services are using port 80.
 
 To access the container's shell:
@@ -34,6 +33,16 @@ docker exec -it app bash
 ```
 
 ## API Endpoints
+
+The OpenAPI (Swagger) documentation will be available at:
+
+```
+http://localhost/docs/api
+```
+and
+```
+http://localhost/docs/api.json
+```
 
 ### `GET /users`
 
