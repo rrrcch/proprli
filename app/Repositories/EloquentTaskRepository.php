@@ -25,7 +25,11 @@ class EloquentTaskRepository implements TaskRepositoryInterface
             )
             ->assignedTo(data_get($filters, 'assigned_to'))
             ->status(data_get($filters, 'status'))
-            ->with('comments')
+            ->with([
+                'creator',
+                'assignedUser',
+                'comments.user',
+            ])
             ->get()
             ->toArray();
     }
