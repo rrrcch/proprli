@@ -11,10 +11,10 @@ class EloquentCommentRepository implements CommentRepositoryInterface
      * Creates a new comment for a task.
      *
      * @param array $data
-     * @return Task
+     * @return array
      */
-    public function create(array $data): Comment
+    public function create(array $data): array
     {
-        return Comment::create($data);
+        return Comment::create($data)->toArray();
     }
 }

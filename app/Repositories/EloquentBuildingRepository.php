@@ -11,11 +11,11 @@ class EloquentBuildingRepository implements BuildingRepositoryInterface
     /**
      * Gets all buildings.
      *
-     * @return Collection
+     * @return array
      */
-    public function getAll(): Collection
+    public function getAll(): array
     {
-        return Building::all();
+        return Building::all()->toArray();
     }
 
     /**

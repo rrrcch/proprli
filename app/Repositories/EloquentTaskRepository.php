@@ -13,9 +13,9 @@ class EloquentTaskRepository implements TaskRepositoryInterface
      *
      * @param string $buildingId
      * @param array $filters
-     * @return Collection
+     * @return array
      */
-    public function getByBuildingId(string $buildingId, array $filters = []): Collection
+    public function getByBuildingId(string $buildingId, array $filters = []): array
     {
         return Task::query()
             ->forBuilding($buildingId)
@@ -26,7 +26,8 @@ class EloquentTaskRepository implements TaskRepositoryInterface
             ->assignedTo(data_get($filters, 'assigned_to'))
             ->status(data_get($filters, 'status'))
             ->with('comments')
-            ->get();
+            ->get()
+            ->toArray();
     }
 
     /**
@@ -44,10 +45,10 @@ class EloquentTaskRepository implements TaskRepositoryInterface
      * Creates a new task for a building.
      *
      * @param array $data
-     * @return Task
+     * @return array
      */
-    public function create(array $data): Task
+    public function create(array $data): array
     {
-        return Task::create($data);
+        return Task::create($data)->toArray();
     }
 }

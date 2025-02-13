@@ -26,7 +26,7 @@ class TaskService
      * @param array $filters
      * @return Collection
      */
-    public function getTasksForBuilding(string $buildingId, array $filters = []): Collection
+    public function getTasksForBuilding(string $buildingId, array $filters = []): array
     {
         return $this->taskRepository->getByBuildingId($buildingId, $filters);
     }
@@ -37,7 +37,7 @@ class TaskService
      * @param array $data
      * @return Task
      */
-    public function createTaskForBuilding(array $data, string $buildingId, int $createdBy): Task
+    public function createTaskForBuilding(array $data, string $buildingId, int $createdBy): array
     {
         if (!$this->buildingRepository->exists($buildingId)) {
             throw new NotFoundHttpException('Building not found.');

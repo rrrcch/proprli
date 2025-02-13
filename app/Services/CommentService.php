@@ -23,9 +23,9 @@ class CommentService
      *
      * @param array $data
      * @param string $taskId
-     * @return Comment
+     * @return array
      */
-    public function createCommentForTask(array $data, string $taskId, int $userId): Comment
+    public function createCommentForTask(array $data, string $taskId, int $userId): array
     {
         if (!$this->taskRepository->exists($taskId)) {
             throw new NotFoundHttpException('Task not found.');
