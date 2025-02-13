@@ -23,6 +23,7 @@ class CommentService
      *
      * @param array $data
      * @param string $taskId
+     * @param int $userId
      * @return array
      */
     public function createCommentForTask(array $data, string $taskId, int $userId): array

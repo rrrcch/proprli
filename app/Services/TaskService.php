@@ -35,7 +35,9 @@ class TaskService
      * Creates a new task for a building.
      *
      * @param array $data
-     * @return Task
+     * @param string $buildingId
+     * @param int $createdBy
+     * @return array
      */
     public function createTaskForBuilding(array $data, string $buildingId, int $createdBy): array
     {
