@@ -4,9 +4,9 @@ namespace Tests\Feature;
 
 use App\Models\Building;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Tests\TestCase;
+use Tests\FeatureTestCase;
 
-class BuildingControllerTest extends TestCase
+class BuildingControllerTest extends FeatureTestCase
 {
     use RefreshDatabase;
 

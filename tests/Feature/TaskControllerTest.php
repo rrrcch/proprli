@@ -5,11 +5,10 @@ namespace Tests\Feature;
 use App\Models\Building;
 use App\Models\Comment;
 use App\Models\Task;
-use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Tests\TestCase;
+use Tests\FeatureTestCase;
 
-class TaskControllerTest extends TestCase
+class TaskControllerTest extends FeatureTestCase
 {
     use RefreshDatabase;
 
