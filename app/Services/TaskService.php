@@ -37,11 +37,14 @@ class TaskService
      * @param array $data
      * @return Task
      */
-    public function createTask(array $data): Task
+    public function createTaskForBuilding(array $data, string $buildingId, int $createdBy): Task
     {
-        if (!$this->buildingRepository->exists($data['building_id'])) {
+        if (!$this->buildingRepository->exists($buildingId)) {
             throw new NotFoundHttpException('Building not found.');
         }
+
+        $data['building_id'] = $buildingId;
+        $data['created_by'] = $createdBy;
 
         return $this->taskRepository->create($data);
     }

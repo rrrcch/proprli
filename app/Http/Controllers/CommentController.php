@@ -27,10 +27,11 @@ class CommentController extends Controller
     {
         $validated = $request->validated();
 
-        $validated['task_id'] = $id;
-        $validated['user_id'] = auth()->user()->id;
-
-        $comment = $this->commentService->createComment($validated);
+        $comment = $this->commentService->createCommentForTask(
+            data: $validated,
+            taskId: $id,
+            userId: auth()->user()->id,
+        );
 
         return response()->json($comment, 201);
     }

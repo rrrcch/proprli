@@ -47,10 +47,11 @@ class TaskController extends Controller
     {
         $validated = $request->validated();
 
-        $validated['building_id'] = $id;
-        $validated['created_by'] = auth()->user()->id;
-
-        $task = $this->taskService->createTask($validated);
+        $task = $this->taskService->createTaskForBuilding(
+            data: $validated,
+            buildingId: $id,
+            createdBy: auth()->user()->id,
+        );
 
         return response()->json($task, 201);
     }

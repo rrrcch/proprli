@@ -21,7 +21,8 @@ class EloquentBuildingRepository implements BuildingRepositoryInterface
     /**
      * Check if a building ID exists.
      *
-     * @return Collection
+     * @param string $id
+     * @return bool
      */
     public function exists(string $id): bool
     {

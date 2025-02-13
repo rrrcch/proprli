@@ -30,6 +30,17 @@ class EloquentTaskRepository implements TaskRepositoryInterface
     }
 
     /**
+     * Check if a task ID exists.
+     *
+     * @param string $id
+     * @return bool
+     */
+    public function exists(string $id): bool
+    {
+        return Task::where('id', $id)->exists();
+    }
+
+    /**
      * Creates a new task for a building.
      *
      * @param array $data

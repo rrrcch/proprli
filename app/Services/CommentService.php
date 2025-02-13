@@ -5,12 +5,16 @@ declare(strict_types=1);
 namespace App\Services;
 
 use App\Contracts\CommentRepositoryInterface;
+use App\Contracts\TaskRepositoryInterface;
 use App\Models\Comment;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class CommentService
 {
-    public function __construct(protected CommentRepositoryInterface $commentRepository)
-    {
+    public function __construct(
+        protected CommentRepositoryInterface $commentRepository,
+        protected TaskRepositoryInterface $taskRepository
+    ) {
         //
     }
 
@@ -21,8 +25,15 @@ class CommentService
      * @param string $taskId
      * @return Comment
      */
-    public function createComment(array $data): Comment
+    public function createCommentForTask(array $data, string $taskId, int $userId): Comment
     {
+        if (!$this->taskRepository->exists($taskId)) {
+            throw new NotFoundHttpException('Task not found.');
+        }
+
+        $data['task_id'] = $taskId;
+        $data['user_id'] = $userId;
+
         return $this->commentRepository->create($data);
     }
 }
