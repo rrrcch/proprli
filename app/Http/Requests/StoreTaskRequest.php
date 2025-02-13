@@ -19,7 +19,7 @@ class StoreTaskRequest extends FormRequest
             'name'        => ['required'],
             'description' => ['required'],
             'assigned_to' => ['required', 'exists:users,id'],
-            'status'      => [Rule::in(TaskStatus::values())],
+            'status'      => [Rule::enum(TaskStatus::class)],
         ];
     }
 }
