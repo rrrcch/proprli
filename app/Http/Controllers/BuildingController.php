@@ -4,11 +4,17 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Contracts\BuildingRepositoryInterface;
 use App\Models\Building;
 use Illuminate\Http\JsonResponse;
 
 class BuildingController extends Controller
 {
+    public function __construct(protected BuildingRepositoryInterface $buildingRepository)
+    {
+        //
+    }
+
     /**
      * Returns a list of buildings.
      *
@@ -16,7 +22,7 @@ class BuildingController extends Controller
      */
     public function index(): JsonResponse
     {
-        $buildings = Building::all();
+        $buildings = $this->buildingRepository->getAll();
 
         return response()->json($buildings);
     }
