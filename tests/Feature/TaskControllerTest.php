@@ -67,4 +67,36 @@ class TaskControllerTest extends FeatureTestCase
 
         $this->assertDatabaseHas('tasks', $expected);
     }
+
+    public function test_new_task_fails_validation()
+    {
+        $taskData = Task::factory([
+            'name'        => '',
+            'description' => '',
+            'status'      => 'foo',
+            'assigned_to' => 'bar',
+            'status'      => 'baz,'
+        ])->make()->toArray();
+
+        $response = $this->postJson("/api/buildings/{$taskData['building_id']}/tasks", $taskData);
+
+        $response
+            ->assertStatus(422)
+            ->assertJsonValidationErrors([
+                'name',
+                'description',
+                'status',
+                'assigned_to',
+                'status'
+            ]);
+    }
+
+    public function test_fails_to_create_task_for_nonexistent_building()
+    {
+        $taskData = Task::factory()->make()->toArray();
+
+        $response = $this->postJson("/api/buildings/1337/tasks", $taskData);
+
+        $response->assertStatus(404);
+    }
 }

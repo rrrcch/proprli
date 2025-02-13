@@ -29,4 +29,24 @@ class CommentControllerTest extends FeatureTestCase
 
         $this->assertDatabaseHas('comments', $expected);
     }
+
+    public function test_new_comment_fails_validation()
+    {
+        $commentData = Comment::factory(['content' => ''])->make()->toArray();
+
+        $response = $this->postJson("/api/tasks/{$commentData['task_id']}/comments", $commentData);
+
+        $response
+            ->assertStatus(422)
+            ->assertJsonValidationErrors(['content']);
+    }
+
+    public function test_fails_to_create_comment_for_nonexistent_task()
+    {
+        $commentData = Comment::factory()->make()->toArray();
+
+        $response = $this->postJson("/api/tasks/1337/comments", $commentData);
+
+        $response->assertStatus(404);
+    }
 }
